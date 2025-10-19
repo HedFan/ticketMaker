@@ -1,18 +1,15 @@
 import express from "express";
 import cors from "cors";
+import fs from "fs";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const tickets = []; // временное хранилище тикетов
-
-app.get("/tickets", (req, res) => res.json(tickets));
-
-app.post("/tickets", (req, res) => {
-  const newTicket = { id: Date.now(), ...req.body };
-  tickets.push(newTicket);
-  res.status(201).json(newTicket);
+app.get("/api/tickets", (req, res) => {
+  console.log("chekc here");
+  const data = JSON.parse(fs.readFileSync("./server/data.json", "utf-8"));
+  res.json(data.tickets);
 });
 
 app.listen(3000, () => console.log("Server running on http://localhost:3000"));
