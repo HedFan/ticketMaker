@@ -1,5 +1,5 @@
 <template>
-  <div class="w-64 min-h-full bg-gray-900 text-gray-100 flex flex-col rounded-r-lg">
+  <div class="w-64 bg-gray-900 text-gray-100 flex flex-col rounded-r-lg">
     <div class="flex-1 p-4 space-y-2">
       <button
           v-for="item in menuItems"
