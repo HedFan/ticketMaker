@@ -1,14 +1,14 @@
 <template>
   <div class="min-h-screen flex flex-col">
-    <Header/>
+    <Header />
 
     <main class="flex-grow min-h-0">
-      <div class="flex flex-wrap justify-center mt-15">
-        <MainContent/>
+      <div class="flex flex-wrap mt-10">
+        <MainContent />
       </div>
     </main>
 
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
