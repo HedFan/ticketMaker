@@ -18,6 +18,10 @@
       </div>
     </div>
   </div>
+
+  <div v-if="usePopup.isOpen">
+    <PopupTicket/>
+  </div>
 </template>
 
 <style scoped>
@@ -25,9 +29,12 @@
 </style>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import SideMenu from "@/components/SideMenu.vue";
 import TicketQueue from "@/components/TicketQueue.vue";
+import PopupTicket from "@/components/PopupTicket.vue";
+import { usePopupStore } from "@/stores/counter.ts";
 
 const activeView = ref("queue");
+const usePopup = usePopupStore();
 </script>

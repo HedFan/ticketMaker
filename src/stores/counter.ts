@@ -1,16 +1,5 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import type { IFetchingData } from "../../configs/fetchingDataTypes.ts";
-
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
-  }
-
-  return { count, doubleCount, increment }
-})
 
 export const useTicketStore = defineStore("tickets", {
   state: () => ({
@@ -19,23 +8,52 @@ export const useTicketStore = defineStore("tickets", {
   }),
 
   actions: {
-    async startAutoRefresh() {
-      await this.fetchTickets();
-      this.refreshInterval = setInterval(() => this.fetchTickets(), 180000);
-
-    },
-    stopAutoRefresh() {
-      if(this.refreshInterval) {
-        clearInterval(this.refreshInterval);
-      }
-    },
     async fetchTickets() {
-      console.log("check");
       const res = await fetch("http://localhost:3000/api/tickets");
-      // const resData = await res.json();
 
       this.tickets = await res.json();
       console.log("this.tickets", this.tickets);
+    },
+    updateLocalTicket(id: number, updates: Partial<IFetchingData>) {
+      const index = this.tickets.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        const currentTicket = this.tickets[index] as IFetchingData;
+        this.tickets[index] = { ...currentTicket, ...updates };
+      }
+    },
+    async setUpdatedData(id: number | undefined, updates: Partial<IFetchingData> | undefined, isSync = false) {
+      if(id === undefined || updates === undefined) {
+        return;
+      }
+      try {
+        await fetch(`http://localhost:3000/api/tickets/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updates)
+        });
+        if(isSync) {
+          this.updateLocalTicket(id, updates);
+        }
+      } catch (err) {
+        console.error("Error while updating", err);
+      }
+    }
+  }
+})
+
+export const usePopupStore = defineStore("popup", {
+  state: () => ({
+    isOpen: false,
+    currentOpenTicketId: null as number | null
+  }),
+  actions: {
+    closePopup() {
+      this.isOpen = false;
+      this.currentOpenTicketId = null;
+    },
+    openPopup(id: number) {
+      this.isOpen = true;
+      this.currentOpenTicketId = id;
     }
   }
 })
