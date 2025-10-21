@@ -1,50 +1,67 @@
 <template>
   <div class="fixed inset-0 flex items-center justify-center bg-black opacity-60"></div>
   <div
+    v-if="openTicketData"
     class="absolute top-1/2 left-1/2 w-5/6 h-auto max-h-150 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded shadow-lg overflow-y-auto"
   >
     <div class="flex justify-between mb-4">
-      <p class="font-bold text-xl">{{ openTicketData?.name || 'New Ticket' }}</p>
-      <span class="cursor-pointer" @click="usePopup.closePopup()">X</span>
+      <textarea
+        :id="'title'"
+        class="w-full h-10 px-2 py-1 resize-none font-bold text-xl"
+        v-model="openTicketData.name"
+        maxlength="50"
+        placeholder="Description"
+      ></textarea>
+      <span class="cursor-pointer ml-2" @click="usePopup.closePopup()">X</span>
     </div>
-    <div v-if="openTicketData">
-      <div class="flex inline-flex mb-3">
-        <div class="mr-4">
-          <select
-            id="priority"
-            v-model="openTicketData.priority"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            <option value="">Choose priority</option>
-            <option v-for="option in PRIORITY_OPTIONS" :key="option" :value="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
+    <div>
+      <div class="flex justify-between mb-3">
+        <div class="inline-flex">
+          <div class="mr-4">
+            <select
+              id="priority"
+              v-model="openTicketData.priority"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            >
+              <option value="">Choose priority</option>
+              <option v-for="option in PRIORITY_OPTIONS" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
 
-        <div class="mr-4">
-          <select
-            id="partner"
-            v-model="openTicketData.partner"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            <option value="">Choose partner</option>
-            <option v-for="option in PARTNER_OPTIONS" :key="option" :value="option">
-              {{ option }}
-            </option>
-          </select>
-        </div>
+          <div class="mr-4">
+            <select
+              id="partner"
+              v-model="openTicketData.partner"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            >
+              <option value="">Choose partner</option>
+              <option v-for="option in PARTNER_OPTIONS" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
 
+          <div>
+            <select
+              id="status"
+              v-model="openTicketData.status"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            >
+              <option v-for="option in STATUS_OPTIONS" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+        </div>
         <div>
-          <select
-            id="status"
-            v-model="openTicketData.status"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          <button
+            class="px-4 py-2 border border-red-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-900 text-red-700 cursor-pointer"
+            @click="deleteTicket"
           >
-            <option v-for="option in STATUS_OPTIONS" :key="option" :value="option">
-              {{ option }}
-            </option>
-          </select>
+            Delete
+          </button>
         </div>
       </div>
       <div>
@@ -188,6 +205,11 @@ const sentToPartner = async () => {
 
   // imitation of the progress
   simulateProgress(currentId)
+}
+
+const deleteTicket = () => {
+  ticketData.deleteTicket(openTicketData.value?.id)
+  usePopup.closePopup()
 }
 
 function simulateProgress(id: number): void {

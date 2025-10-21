@@ -3,12 +3,12 @@
     <div class="">
       <TopMenu />
     </div>
-    <div class="flex justify-center gap-4 mt-10">
-      <div class="w-64">
+    <div class="flex justify-center gap-4 mt-10 flex-col md:flex-row w-full">
+      <div class="w-full md:w-64">
         <SideMenu :active="activeView" @select="activeView = $event" />
       </div>
 
-      <div class="p-6 flex-1 w-100">
+      <div class="p-6 flex-1 w-full">
         <div v-show="activeView === 'queue'">
           <TicketQueue />
         </div>
