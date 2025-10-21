@@ -13,12 +13,12 @@
         >
       </div>
     </div>
-    <div v-if="filteredTickets">
+    <div v-if="filteredTickets.length">
       <div
         v-for="(ticket, index) in filteredTickets"
         :key="ticket.id"
         class="cursor-pointer p-2 rounded-lg hover:bg-gray-100 flex justify-between items-center border-b border-gray-300"
-        @click="usePopup.openPopup(ticket.id)"
+        @click="popupStore.openPopup(ticket.id)"
       >
         <span class="font-medium text-gray-800">{{ ticket.name }}</span>
         <span
@@ -26,6 +26,9 @@
           :style="{ backgroundColor: itemColors[ticket.status] }"
         ></span>
       </div>
+    </div>
+    <div v-else-if="!unapprovedTickets.length" class="text-center mt-10">
+      Ask your Operator to add tickets
     </div>
   </div>
 </template>
@@ -42,7 +45,7 @@ import {
 
 const isLoading = ref(true)
 const ticketsData = useTicketStore()
-const usePopup = usePopupStore()
+const popupStore = usePopupStore()
 const activeItemFilter = ref<IStatus[]>([])
 
 onMounted(async () => {

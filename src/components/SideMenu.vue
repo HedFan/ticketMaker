@@ -6,27 +6,39 @@
         :key="item.id"
         @click="$emit('select', item.id)"
         :class="[
-          'w-full text-left px-4 py-2 rounded-lg transition-all duration-150 cursor-pointer',
+          'w-full text-left px-4 py-2 rounded-lg transition-all duration-150 cursor-pointer justify-between flex',
           active === item.id
             ? 'bg-gray-600 text-white'
             : 'hover:bg-gray-700 hover:text-white text-gray-300',
         ]"
       >
         {{ item.label }}
+        <span v-if="item.id === 'queue' && appSore.role === 'Operator'" @click="creatNewTicket"
+          >+</span
+        >
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAppStore } from '@/stores/appStore.ts'
+import { useTicketStore } from '@/stores/ticketPinia.ts'
+
 const props = defineProps({
   active: String,
 })
 const emit = defineEmits(['select'])
+const appSore = useAppStore()
+const ticketStore = useTicketStore()
 
 const menuItems = [
   { id: 'queue', label: 'Ticket Queue' },
   { id: 'approved', label: 'Approved Library' },
   { id: 'partner', label: 'Partner Overview' },
 ]
+
+const creatNewTicket = () => {
+  ticketStore.createTicketData()
+}
 </script>

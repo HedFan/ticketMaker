@@ -12,7 +12,6 @@ export const useTicketStore = defineStore('tickets', {
       const res = await fetch('http://localhost:3000/api/tickets')
 
       this.tickets = await res.json()
-      console.log('this.tickets', this.tickets)
     },
     updateLocalTicket(id: number, updates: Partial<IFetchingData>) {
       const index = this.tickets.findIndex((item) => item.id === id)
@@ -39,7 +38,49 @@ export const useTicketStore = defineStore('tickets', {
           this.updateLocalTicket(id, updates)
         }
       } catch (err) {
-        console.error('Error while updating', err)
+        console.error('Error while updating ticket', err)
+      }
+    },
+    async addTicketToServer(id: number, ticketData: Partial<IFetchingData>) {
+      try {
+        await fetch(`http://localhost:3000/api/tickets/`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(ticketData),
+        })
+      } catch (err) {
+        console.error('Error while adding ticket', err)
+      }
+    },
+    createTicketData() {
+      const newId = this.tickets.reduce((max, t) => (t.id > max ? t.id : max), 0) + 1
+      usePopupStore().openPopup(newId)
+      const newTicketData: IFetchingData = {
+        id: newId,
+        name: 'New Ticket',
+        priority: '',
+        partner: '',
+        status: 'Pending',
+        description: '',
+        isApprouve: false,
+        isSentToPartner: false,
+        detail_description: [],
+      }
+      this.tickets.push(newTicketData)
+      this.addTicketToServer(newId, newTicketData)
+    },
+    async deleteTicket(id?: number) {
+      if (id === undefined) {
+        return
+      }
+      this.tickets = this.tickets.filter((item) => item.id !== id)
+
+      try {
+        await fetch(`http://localhost:3000/api/tickets/${id}`, {
+          method: 'DELETE',
+        })
+      } catch (err) {
+        console.error('Error while deleting ticket', err)
       }
     },
   },
