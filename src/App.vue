@@ -3,7 +3,7 @@
     <Header />
 
     <main class="flex-grow min-h-0">
-      <div class="flex flex-wrap mt-10">
+      <div class="flex flex-wrap">
         <MainContent />
       </div>
     </main>
