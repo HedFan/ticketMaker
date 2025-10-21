@@ -5,7 +5,7 @@
       "name": "Ticket 1",
       "priority": "",
       "partner": "",
-      "status": "Pending",
+      "status": "Completed",
       "description": "Can you please make: \n \nPlease be aware to keep clipping path for all pictures (but only 1 clipping path)",
       "isApprouve": false,
       "isSentToPartner": false,
@@ -13,14 +13,18 @@
         {
           "photo_id": 15377489,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Granita -solid"
         },
         {
           "photo_id": 15377489,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Fuchsia Fedora, AOP Block Libre (as attached: Block Libre)"
         }
@@ -39,21 +43,27 @@
         {
           "photo_id": 15377486,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Night Sky,  AOP White Dots (as attached: DOTS CLOUD DANCER -but night sky, not black)"
         },
         {
           "photo_id": 15377486,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Hedge Green -solid"
         },
         {
           "photo_id": 15377486,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Navy Blazer-solid"
         }
@@ -72,21 +82,27 @@
         {
           "photo_id": 15377488,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Hedge Green -solid"
         },
         {
           "photo_id": 15377488,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Navy Blazer-solid"
         },
         {
           "photo_id": 15377488,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Night Sky,  AOP White Dots (as attached: DOTS CLOUD DANCER -but night sky, not black)"
         }
@@ -105,14 +121,18 @@
         {
           "photo_id": 15377522,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Granita -solid"
         },
         {
           "photo_id": 15377522,
           "style": [
-            "001", "002", "007"
+            "001",
+            "002",
+            "007"
           ],
           "text": "please make pantone color: Fuchsia Fedora, AOP Block Libre (as attached: Block Libre)"
         }
