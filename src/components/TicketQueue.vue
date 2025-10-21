@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
-import { useTicketStore, usePopupStore } from '@/stores/counter.ts'
+import { useTicketStore, usePopupStore } from '@/stores/ticketPinia.ts'
 import { itemColors } from '../../configs/fetchingDataConfig.ts'
 import {
   type IStatus,

@@ -134,6 +134,7 @@
         </button>
 
         <button
+          v-if="appStore.role === 'Manager'"
           @click="toggleApprove"
           class="px-4 py-2 rounded-lg text-white transition bg-red-800 hover:bg-gray-700 cursor-pointer"
         >
@@ -146,7 +147,8 @@
 
 <script setup lang="ts">
 import { computed, watch } from 'vue'
-import { useTicketStore, usePopupStore } from '@/stores/counter.ts'
+import { useTicketStore, usePopupStore } from '@/stores/ticketPinia.ts'
+import { useAppStore } from '@/stores/appStore.ts'
 import {
   PARTNER_OPTIONS,
   PRIORITY_OPTIONS,
@@ -155,6 +157,8 @@ import {
 
 const usePopup = usePopupStore()
 const ticketData = useTicketStore()
+const appStore = useAppStore()
+
 const openTicketData = computed(() =>
   ticketData.tickets.find((item) => item.id === usePopup.currentOpenTicketId),
 )
